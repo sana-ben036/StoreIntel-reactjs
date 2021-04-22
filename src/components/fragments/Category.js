@@ -1,9 +1,10 @@
+import { SignalCellularNullOutlined } from '@material-ui/icons'
 import React, {useState, useEffect} from 'react'
 
 const defaultImageSrc="/img/category.png"
 
 const initialFieldValues ={
-    id:"",
+    //categoryID:,
     title:"",
     description:"",
     imageName:"",
@@ -12,7 +13,9 @@ const initialFieldValues ={
 
 
 }
-export default function Category () {
+export default function Category (props) {
+
+    const {addOrEdit} = props
     const [values,setValues] = useState(initialFieldValues)
 
     const [errors,setErrors] = useState({})
@@ -49,17 +52,29 @@ export default function Category () {
 
     const validate =()=>{
         let temp={}
-        temp.title = values.title ==""?false:true;
+        temp.title = values.title == ""?false:true;
         temp.imageSrc = values.imageSrc == defaultImageSrc?false:true;
         setErrors(temp)
         return Object.values(temp).every(x => x == true)
 
+    }
 
+    const resetForm =() =>{
+        setValues(initialFieldValues)
+        document.getElementById('image-uploader').value = null;
+        setErrors({})
     }
 
     const handleFormSubmit = e=>{
         e.preventDefault()
         if(validate()){
+            const formData = new FormData()
+            //formData.append('categoryID',values.categoryID)
+            formData.append('title',values.title)
+            formData.append('description',values.description)
+            formData.append('imageName',values.imageName)
+            formData.append('imageFile',values.imageFile)
+            addOrEdit(formData,resetForm)
 
         }
     }
@@ -74,41 +89,39 @@ export default function Category () {
         <>
             <div className="container text-center">
                 <p className="lead">New Category</p>
-
             </div>
             <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
                 <div className="card">
-                    <img src={values.imageSrc} className="card-img-top"/>
-                    <div className="form-group mx-4">
+                    <img alt="category" src={values.imageSrc} className="card-img-top"/>
+                    <div className="form-group m-auto">
                         <input type="file" 
                         accept="image/*" 
                         className={"form-control-file"+ applyErrorClass('imageSrc')}
-                        onChange={showPreview}/>
+                        onChange={showPreview}
+                        id="image-uploader"
+                        />
 
                     </div>
                     <div className="card-body">
                         <div className="form-group">
                             <input className={"form-control"+ applyErrorClass('title')} 
-                            placeholder="Title" 
-                            name="Title" 
+                            placeholder="Enter title" 
+                            name="title" 
                             value={values.title}
                             onChange={handleInputChange}/>
                         </div>
                         <div className="form-group">
                             <input className="form-control" 
-                            placeholder="Description" 
-                            name="Description" 
+                            placeholder="Enter description" 
+                            name="description" 
                             value={values.description}
                             onChange={handleInputChange}/>
                         </div>
                         <div className="form-group text-center">
                             <button className="btn btn-light" type="submit">Submit</button>
                         </div>
-
                     </div>
-
                 </div>
-
             </form>
         </>
     )
