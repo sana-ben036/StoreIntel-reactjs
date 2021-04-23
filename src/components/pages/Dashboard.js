@@ -10,9 +10,11 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Category, Home, Phonelink, Power, Settings, ShoppingCart} from '@material-ui/icons';
+import {Category, Home, Power, Settings, Phonelink, ShoppingCart} from '@material-ui/icons';
 import HomeFragment from "../fragments/HomeFragment";
 import ManageCategoryFragment from "../fragments/ManageCategoryFragment";
+import ManageProductFragment from "../fragments/ManageProductFragment";
+import ManageOrderFragment from "../fragments/ManageOrderFragment";
 
 
 const drawerWidth = 240;
@@ -52,6 +54,10 @@ export default function ClippedDrawer() {
         return <HomeFragment/>
       case "MANAGE_CATEGORY":
         return <ManageCategoryFragment/>
+      case "MANAGE_PRODUCT":
+        return <ManageProductFragment/>
+      case "MANAGE_ORDER":
+        return <ManageOrderFragment/>
       default:
         break;
 
@@ -94,7 +100,7 @@ export default function ClippedDrawer() {
               </ListItem>
           </List>
           <List>
-          <ListItem button>
+          <ListItem button onClick={e=>setfragment("MANAGE_Product")}>
                 <ListItemIcon>
                   <Phonelink/>
                 </ListItemIcon>
@@ -102,7 +108,7 @@ export default function ClippedDrawer() {
               </ListItem>
           </List>
           <List>
-          <ListItem button>
+          <ListItem button onClick={e=>setfragment("MANAGE_Order")}>
                 <ListItemIcon>
                   <ShoppingCart/>
                 </ListItemIcon>

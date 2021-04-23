@@ -1,6 +1,7 @@
 import { Container } from '@material-ui/core'
 import React,{useState,useEffect} from 'react'
 import Category from "./Category"
+import CategoryList from "./CategoryList"
 import axios from 'axios';
 
 
@@ -42,8 +43,8 @@ export default function ManageCategoryFragment() {
                     <Category
                             addOrEdit={addOrEdit}/>
                 </div>
-                <div className="col-md-8 container text-center">
-                    <p className="lead">List of Category Records</p>
+                <div className="col-md-8">
+                    <CategoryList/>
                 </div>
             </div>
         </Container>
