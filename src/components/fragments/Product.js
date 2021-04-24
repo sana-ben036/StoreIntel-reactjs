@@ -1,23 +1,49 @@
 import React, {useState, useEffect} from 'react'
-
-const defaultImageSrc="/img/category.png"
+import axios from 'axios';
+const defaultImageSrc="/img/product.png"
 
 const initialFieldValues ={
-    //categoryID:,
     title:"",
+    price:null,
     description:"",
+    inStock:null,
+    categoryId:"",
     imageName:"",
     imageSrc:defaultImageSrc,
     imageFile:null
 
 
 }
-export default function Category (props) {
+const options = [
+    {
+      label: "Apple",
+      value: "apple",
+    },
+    {
+      label: "Mango",
+      value: "mango",
+    },
+    {
+      label: "Banana",
+      value: "banana",
+    },
+    {
+      label: "Pineapple",
+      value: "pineapple",
+    },
+  ];
+
+
+
+
+export default function Product (props) {
 
     const {addOrEdit} = props
     const [values,setValues] = useState(initialFieldValues)
 
     const [errors,setErrors] = useState({})
+
+    
 
     const handleInputChange = e=>{
         const{name,value} = e.target;
@@ -52,6 +78,9 @@ export default function Category (props) {
     const validate =()=>{
         let temp={}
         temp.title = values.title === ""?false:true;
+        temp.price = values.price === null ?false:true;
+        temp.inStock = values.inStock === null ?false:true;
+        temp.categoryId = values.categoryId === ""?false:true;
         temp.imageSrc = values.imageSrc === defaultImageSrc?false:true;
         setErrors(temp)
         return Object.values(temp).every(x => x === true)
@@ -68,9 +97,11 @@ export default function Category (props) {
         e.preventDefault()
         if(validate()){
             const formData = new FormData()
-            //formData.append('categoryID',values.categoryID)
             formData.append('title',values.title)
+            formData.append('price',values.description)
             formData.append('description',values.description)
+            formData.append('inStock',values.description)
+            formData.append('categoryId',values.categoryId)
             formData.append('imageName',values.imageName)
             formData.append('imageFile',values.imageFile)
             addOrEdit(formData,resetForm)
@@ -84,10 +115,12 @@ export default function Category (props) {
 
 
 
+
     return (
+        
         <>
             <div className="container text-center">
-                <p className="lead">New Category</p>
+                <p className="lead">New Product</p>
             </div>
             <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
                 <div className="card">
@@ -104,17 +137,43 @@ export default function Category (props) {
                     <div className="card-body">
                         <div className="form-group">
                             <input className={"form-control"+ applyErrorClass('title')} 
-                            placeholder="Title of category..." 
+                            placeholder="Title..." 
                             name="title" 
+                            type="text"
                             value={values.title}
                             onChange={handleInputChange}/>
                         </div>
                         <div className="form-group">
+                            <input className={"form-control"+ applyErrorClass('price')} 
+                            placeholder="Price..." 
+                            name="price" 
+                            type="number"
+                            min="0"
+                            value={values.price}
+                            onChange={handleInputChange}/>
+                        </div>
+                        <div className="form-group">
+                            <input className={"form-control"+ applyErrorClass('inStock')} 
+                            placeholder="Quantity in Stock..." 
+                            name="inStock" 
+                            type="number"
+                            min="0"
+                            value={values.inStock}
+                            onChange={handleInputChange}/>
+                        </div>
+                        <div className="form-group">
                             <textarea className="form-control" 
-                            placeholder="Description about the category..." 
+                            placeholder="About..." 
                             name="description" 
                             value={values.description}
                             onChange={handleInputChange}/>
+                        </div>
+                        <div className="form-group select-container">
+                        <select>
+                            {options.map((option) => (
+                            <option value={option.value}>{option.label}</option>
+                            ))}
+                        </select>
                         </div>
                         <div className="form-group text-center">
                             <button className="btn btn-light" type="submit">Submit</button>

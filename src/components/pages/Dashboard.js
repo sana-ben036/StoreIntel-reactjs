@@ -100,7 +100,7 @@ export default function ClippedDrawer() {
               </ListItem>
           </List>
           <List>
-          <ListItem button onClick={e=>setfragment("MANAGE_Product")}>
+          <ListItem button onClick={e=>setfragment("MANAGE_PRODUCT")}>
                 <ListItemIcon>
                   <Phonelink/>
                 </ListItemIcon>
@@ -108,7 +108,7 @@ export default function ClippedDrawer() {
               </ListItem>
           </List>
           <List>
-          <ListItem button onClick={e=>setfragment("MANAGE_Order")}>
+          <ListItem button onClick={e=>setfragment("MANAGE_ORDER")}>
                 <ListItemIcon>
                   <ShoppingCart/>
                 </ListItemIcon>
