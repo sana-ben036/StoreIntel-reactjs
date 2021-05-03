@@ -10,8 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Category, Home, Power, Settings, Phonelink, ShoppingCart} from '@material-ui/icons';
-import HomeFragment from "../fragments/HomeFragment";
+import {Category, Power, Settings, Phonelink, ShoppingCart} from '@material-ui/icons';
 import ManageCategoryFragment from "../fragments/ManageCategoryFragment";
 import ManageProductFragment from "../fragments/ManageProductFragment";
 import ManageOrderFragment from "../fragments/ManageOrderFragment";
@@ -45,13 +44,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ClippedDrawer() {
   const classes = useStyles();
 
-  const [fragment, setfragment] = useState("HOME")
+  const [fragment, setfragment] = useState("MANAGE_PRODUCT")
 
   const loadFragment= () =>{
 
     switch (fragment)  {
-      case "HOME":
-        return <HomeFragment/>
+      
       case "MANAGE_CATEGORY":
         return <ManageCategoryFragment/>
       case "MANAGE_PRODUCT":
@@ -70,7 +68,7 @@ export default function ClippedDrawer() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            IntelStore
+            Welcome To Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -83,12 +81,13 @@ export default function ClippedDrawer() {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
+          
           <List>
-              <ListItem button onClick={e=>setfragment("HOME")}>
+          <ListItem button onClick={e=>setfragment("MANAGE_PRODUCT")}>
                 <ListItemIcon>
-                  <Home/>
+                  <Phonelink/>
                 </ListItemIcon>
-                <ListItemText primary="Home" />
+                <ListItemText primary="Products" />
               </ListItem>
           </List>
           <List>
@@ -97,14 +96,6 @@ export default function ClippedDrawer() {
                   <Category/>
                 </ListItemIcon>
                 <ListItemText primary="Categories" />
-              </ListItem>
-          </List>
-          <List>
-          <ListItem button onClick={e=>setfragment("MANAGE_PRODUCT")}>
-                <ListItemIcon>
-                  <Phonelink/>
-                </ListItemIcon>
-                <ListItemText primary="Products" />
               </ListItem>
           </List>
           <List>

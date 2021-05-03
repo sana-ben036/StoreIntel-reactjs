@@ -1,5 +1,4 @@
 import { Container} from '@material-ui/core'
-import React,{useState,useEffect} from 'react'
 import Category from "./Category"
 import Categories from "./Categories"
 import axios from 'axios';
@@ -14,7 +13,7 @@ export default function ManageCategoryFragment() {
 
     },[])*/
 
-    const API = (url='https://localhost:44374/api/Category') =>{
+    const API = (url='http://localhost:44374/api/Category') =>{
         return{
             fetchAll: () => axios.get(url),
             create: newRecord => axios.post(url,newRecord),

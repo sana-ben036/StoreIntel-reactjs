@@ -1,11 +1,10 @@
 import { Container} from '@material-ui/core'
-import React,{useState,useEffect} from 'react'
 import Product from "./Product"
 import axios from 'axios';
 
 export default function ManageProductFragment() {
 
-    const API = (url='https://localhost:44374/api/Product') =>{
+    const API = (url='http://localhost:44374/api/Product') =>{
         return{
             fetchAll: () => axios.get(url),
             create: newRecord => axios.post(url,newRecord),

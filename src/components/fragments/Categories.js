@@ -10,7 +10,7 @@ export default class Categories extends Component {
 
 
     refreshList(){
-        fetch('https://localhost:44374/api/Category')
+        fetch('http://localhost:44374/api/Category')
         .then(response=>response.json())
         .then(data=>{
             this.setState({categories:data});
@@ -23,7 +23,7 @@ export default class Categories extends Component {
 
     delete(id){
         if(window.confirm('Are you sure??')){
-            fetch('https://localhost:44374/api/Category/'+id,{
+            fetch('http://localhost:44374/api/Category/'+id,{
                 method:'DELETE',
                 header:{
                     'Accept':'application/json',
@@ -58,7 +58,7 @@ export default class Categories extends Component {
                         {
                         categories.map(c=>
                             <tr key={c.id}>
-                                <td><img width="50px" src={c.imageSrc}/></td>
+                                <td><img width="50px" alt="icon" src={c.imageSrc}/></td>
                                 <td>{c.title}</td>
                                 <td>{c.description}</td>
                                 <td>

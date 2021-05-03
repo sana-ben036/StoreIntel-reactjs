@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios';
 const defaultImageSrc="/img/product.png"
 
 const initialFieldValues ={
     title:"",
-    price:null,
+    price:0,
     description:"",
-    inStock:null,
+    inStock:0,
     categoryId:"",
     imageName:"",
     imageSrc:defaultImageSrc,
@@ -14,25 +13,6 @@ const initialFieldValues ={
 
 
 }
-const options = [
-    {
-      label: "Apple",
-      value: "apple",
-    },
-    {
-      label: "Mango",
-      value: "mango",
-    },
-    {
-      label: "Banana",
-      value: "banana",
-    },
-    {
-      label: "Pineapple",
-      value: "pineapple",
-    },
-  ];
-
 
 
 
@@ -78,8 +58,8 @@ export default function Product (props) {
     const validate =()=>{
         let temp={}
         temp.title = values.title === ""?false:true;
-        temp.price = values.price === null ?false:true;
-        temp.inStock = values.inStock === null ?false:true;
+        temp.price = values.price === 0 ?false:true;
+        temp.inStock = values.inStock === 0 ?false:true;
         temp.categoryId = values.categoryId === ""?false:true;
         temp.imageSrc = values.imageSrc === defaultImageSrc?false:true;
         setErrors(temp)
@@ -111,9 +91,23 @@ export default function Product (props) {
 
 
     const applyErrorClass = field =>((field in errors && errors[field]===false)?'invalid-field':'')
+    
 
-
-
+    //fetch categories list
+    
+    const [catList,setCatList]= useState([]);
+    useEffect(()=>{
+        async function fetchCatList(){
+            const requesUrl = "http://localhost:44374/api/Category";
+            const reponse = await fetch(requesUrl);
+            const reponseJson= await reponse.json();
+            console.log(reponseJson);
+            setCatList(reponseJson);
+        }
+        fetchCatList();
+    },[]);
+        
+    
 
 
     return (
@@ -151,6 +145,7 @@ export default function Product (props) {
                             min="0"
                             value={values.price}
                             onChange={handleInputChange}/>
+                            <label> MAD</label>
                         </div>
                         <div className="form-group">
                             <input className={"form-control"+ applyErrorClass('inStock')} 
@@ -160,6 +155,7 @@ export default function Product (props) {
                             min="0"
                             value={values.inStock}
                             onChange={handleInputChange}/>
+                            
                         </div>
                         <div className="form-group">
                             <textarea className="form-control" 
@@ -168,12 +164,14 @@ export default function Product (props) {
                             value={values.description}
                             onChange={handleInputChange}/>
                         </div>
-                        <div className="form-group select-container">
-                        <select>
-                            {options.map((option) => (
-                            <option value={option.value}>{option.label}</option>
-                            ))}
-                        </select>
+                        <div className="form-group ">
+                            <select className={"form-control"+ applyErrorClass('categoryId')}  >
+                                <option>Category...</option>
+                                {catList.map((cat) => (
+                                    
+                                <option key ={cat.id} value={cat.id} >{cat.title}</option>
+                                ))}
+                            </select>
                         </div>
                         <div className="form-group text-center">
                             <button className="btn btn-light" type="submit">Submit</button>
