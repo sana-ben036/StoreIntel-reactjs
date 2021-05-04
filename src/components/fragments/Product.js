@@ -3,10 +3,10 @@ const defaultImageSrc="/img/product.png"
 
 const initialFieldValues ={
     title:"",
-    price:0,
+    price:"",
     description:"",
-    inStock:0,
-    categoryId:"",
+    inStock:"",
+    categoryId: "",
     imageName:"",
     imageSrc:defaultImageSrc,
     imageFile:null
@@ -58,9 +58,9 @@ export default function Product (props) {
     const validate =()=>{
         let temp={}
         temp.title = values.title === ""?false:true;
-        temp.price = values.price === 0 ?false:true;
-        temp.inStock = values.inStock === 0 ?false:true;
-        temp.categoryId = values.categoryId === ""?false:true;
+        temp.price = values.price === "" ?false:true;
+        temp.inStock = values.inStock === ""  ?false:true;
+        temp.categoryId = values.categoryId === "" ?false:true;
         temp.imageSrc = values.imageSrc === defaultImageSrc?false:true;
         setErrors(temp)
         return Object.values(temp).every(x => x === true)
@@ -78,9 +78,9 @@ export default function Product (props) {
         if(validate()){
             const formData = new FormData()
             formData.append('title',values.title)
-            formData.append('price',values.description)
+            formData.append('price',values.price)
             formData.append('description',values.description)
-            formData.append('inStock',values.description)
+            formData.append('inStock',values.inStock)
             formData.append('categoryId',values.categoryId)
             formData.append('imageName',values.imageName)
             formData.append('imageFile',values.imageFile)
@@ -165,11 +165,11 @@ export default function Product (props) {
                             onChange={handleInputChange}/>
                         </div>
                         <div className="form-group ">
-                            <select className={"form-control"+ applyErrorClass('categoryId')}  >
+                            <select name="categoryId" value={values.categoryId} onChange={handleInputChange} className={"form-control"+ applyErrorClass('categoryId')} >
                                 <option>Category...</option>
                                 {catList.map((cat) => (
                                     
-                                <option key ={cat.id} value={cat.id} >{cat.title}</option>
+                                <option  key ={cat.id} value={cat.id}  >{cat.title}</option>
                                 ))}
                             </select>
                         </div>

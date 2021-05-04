@@ -1,5 +1,6 @@
 import { Container} from '@material-ui/core'
 import Product from "./Product"
+import Products from "./Products"
 import axios from 'axios';
 
 export default function ManageProductFragment() {
@@ -27,7 +28,7 @@ export default function ManageProductFragment() {
                     <Product addOrEdit={addOrEdit}/>
                 </div>
                 <div className="col-md-8">
-                    
+                    <Products/>  
                 </div>
             </div>
         </Container>
