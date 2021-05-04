@@ -117,7 +117,7 @@ export default function Product (props) {
                 <p className="lead">New Product</p>
             </div>
             <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
-                <div className="card">
+                <div className="card form">
                     <img alt="category" src={values.imageSrc} className="card-img-top"/>
                     <div className="form-group m-auto">
                         <input type="file" 
@@ -139,13 +139,12 @@ export default function Product (props) {
                         </div>
                         <div className="form-group">
                             <input className={"form-control"+ applyErrorClass('price')} 
-                            placeholder="Price..." 
+                            placeholder="Price... (Euro)" 
                             name="price" 
                             type="number"
                             min="0"
                             value={values.price}
-                            onChange={handleInputChange}/>
-                            <label> MAD</label>
+                            onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
                             <input className={"form-control"+ applyErrorClass('inStock')} 
@@ -159,7 +158,7 @@ export default function Product (props) {
                         </div>
                         <div className="form-group">
                             <textarea className="form-control" 
-                            placeholder="About..." 
+                            placeholder="Description..." 
                             name="description" 
                             value={values.description}
                             onChange={handleInputChange}/>

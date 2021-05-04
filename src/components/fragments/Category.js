@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 
 const defaultImageSrc="/img/category.png"
 
 const initialFieldValues ={
-    //categoryID:,
+    //id: "",
     title:"",
     description:"",
     imageName:"",
@@ -14,10 +14,16 @@ const initialFieldValues ={
 }
 export default function Category (props) {
 
-    const {addOrEdit} = props
+    const { addOrEdit, recordForEdit } = props
     const [values,setValues] = useState(initialFieldValues)
 
     const [errors,setErrors] = useState({})
+
+    useEffect(() => {
+        if (recordForEdit != null)
+            setValues(recordForEdit);
+    
+    }, [recordForEdit])
 
     const handleInputChange = e=>{
         const{name,value} = e.target;
@@ -68,7 +74,7 @@ export default function Category (props) {
         e.preventDefault()
         if(validate()){
             const formData = new FormData()
-            //formData.append('categoryID',values.categoryID)
+            //formData.append('id',values.id)
             formData.append('title',values.title)
             formData.append('description',values.description)
             formData.append('imageName',values.imageName)
@@ -89,8 +95,8 @@ export default function Category (props) {
             <div className="container text-center">
                 <p className="lead">New Category</p>
             </div>
-            <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
-                <div className="card">
+            <form  autoComplete="off" noValidate onSubmit={handleFormSubmit} >
+                <div className="card form" >
                     <img alt="category" src={values.imageSrc} className="card-img-top"/>
                     <div className="form-group m-auto">
                         <input type="file" 
@@ -102,6 +108,13 @@ export default function Category (props) {
 
                     </div>
                     <div className="card-body">
+                        
+                        <div className="form-group">
+                            <input hidden 
+                            name="id" 
+                            value={values.id}
+                            />
+                        </div>
                         <div className="form-group">
                             <input className={"form-control"+ applyErrorClass('title')} 
                             placeholder="Title of category..." 
@@ -111,7 +124,7 @@ export default function Category (props) {
                         </div>
                         <div className="form-group">
                             <textarea className="form-control" 
-                            placeholder="Description about the category..." 
+                            placeholder="Description..." 
                             name="description" 
                             value={values.description}
                             onChange={handleInputChange}/>

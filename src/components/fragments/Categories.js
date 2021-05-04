@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 export default class Categories extends Component {
 
     constructor(props){
@@ -21,6 +22,13 @@ export default class Categories extends Component {
         this.refreshList();
     }
 
+
+    componentDidUpdate(){
+        this.refreshList();
+    }
+
+
+
     delete(id){
         if(window.confirm('Are you sure??')){
             fetch('http://localhost:44374/api/Category/'+id,{
@@ -31,6 +39,17 @@ export default class Categories extends Component {
                 }
             })
         }
+    }
+
+
+    update(id){
+        fetch('http://localhost:44374/api/Category/'+id,{
+                method:'UPDATE',
+                header:{
+                    'Accept':'application/json',
+                    'Cotent-Type':'application/json'
+                }
+            })
     }
 
     
@@ -62,8 +81,9 @@ export default class Categories extends Component {
                                 <td>{c.title}</td>
                                 <td>{c.description}</td>
                                 <td>
-                                    <button className="btn btn-primary m-2">Update</button>
+                                    <button className="btn btn-primary m-2" onClick={()=>this.delete(c.id)}>Update</button>
                                     <button className="btn btn-dark" onClick={()=>this.delete(c.id)}>Delete</button>
+                                    
                                 </td>
                             </tr>
                             )}

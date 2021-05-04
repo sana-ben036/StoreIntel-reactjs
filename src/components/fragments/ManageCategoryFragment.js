@@ -1,4 +1,6 @@
 import { Container} from '@material-ui/core'
+//import React,{useState,useEffect} from 'react'
+
 import Category from "./Category"
 import Categories from "./Categories"
 import axios from 'axios';
@@ -12,6 +14,8 @@ export default function ManageCategoryFragment() {
         refreshList();
 
     },[])*/
+
+    //const [recordForEdit, setRecordForEdit] = useState(null)
 
     const API = (url='http://localhost:44374/api/Category') =>{
         return{
@@ -39,11 +43,35 @@ export default function ManageCategoryFragment() {
         })
         .catch(err => console.log(err))
     }
+    
+
+    /*const addOrEdit = (formData, onSuccess) => {
+        if (formData.get('id') == null)
+            API().create(formData)
+                .then(res =>{
+                    onSuccess();
+                })
+            .catch(err => console.log(err))
+        else
+            API().update(formData.get('id'),formData)
+                .then(res => {
+                    onSuccess();
+                })
+            .catch(err => console.log(err))
+}*/
+
+
+
+
+
+
     return (
         <Container>
             <div className="row">
                 <div className="col-md-4">
-                    <Category addOrEdit={addOrEdit}/>
+                    <Category 
+                    addOrEdit={addOrEdit}
+                    />
                 </div>
                 <div className="col-md-8">
                     <Categories/>    

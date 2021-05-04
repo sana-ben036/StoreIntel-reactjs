@@ -17,3 +17,8 @@ code {
   color:red;
   background-color: #fff;
 }
+
+.form{
+  width: 18rem;
+  margin: auto;
+}

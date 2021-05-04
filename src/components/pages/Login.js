@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios"
 import {Container} from "@material-ui/core"
+import Navigation from './Navigation';
 
 export class Login extends Component {
     
@@ -41,6 +42,8 @@ export class Login extends Component {
 
     render() {
         return (
+            <>
+            <Navigation />
             <Container  maxWidth="xs">
             <form className="m-5" onSubmit = {this.handleSubmit}>
                 <h3 className="text-center mb-5">Login Form</h3>
@@ -64,6 +67,7 @@ export class Login extends Component {
 
             </form>
             </Container>
+            </>
         )
     }
 }

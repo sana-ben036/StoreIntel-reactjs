@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import axios from "axios"
+import Navigation from './Navigation';
+
 
 
 export default class Home extends Component {
@@ -29,18 +31,16 @@ export default class Home extends Component {
     
     
     render() {
+        return(
+        <>
+        <Navigation />
 
-        if(this.state.user){
-            return(
-                <h3>Hi {this.state.user.UserName}</h3>
-            )
-        }
-        return (
-            <div>
-                <h3>home</h3>
-            </div>
-    
+        {this.state.user ? <h3>Hi {this.state.user.UserName}</h3> : <h3>home</h3>}
+        
+
+        </>
         )
+        
     }
 }
 

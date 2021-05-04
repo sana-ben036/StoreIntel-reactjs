@@ -21,6 +21,11 @@ export default class Products extends Component {
         this.refreshList();
     }
 
+
+    componentDidUpdate(){
+        this.refreshList();
+    }
+
     delete(id){
         if(window.confirm('Are you sure??')){
             fetch('http://localhost:44374/api/Product/'+id,{
