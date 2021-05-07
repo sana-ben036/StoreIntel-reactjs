@@ -139,7 +139,7 @@ export default function Product (props) {
                         </div>
                         <div className="form-group">
                             <input className={"form-control"+ applyErrorClass('price')} 
-                            placeholder="Price... (Euro)" 
+                            placeholder="Price... ($)" 
                             name="price" 
                             type="number"
                             min="0"

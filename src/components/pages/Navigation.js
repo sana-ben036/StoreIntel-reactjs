@@ -18,12 +18,14 @@ export default class Navigation extends Component{
                         <NavLink className="d-inline p-2  text-white" to="/">
                             Home
                         </NavLink>
+
                         <NavLink className="d-inline p-2 text-white" to="/login">
                             Login
                         </NavLink>
                         <NavLink className="d-inline p-2  text-white" to="/signUp">
                             Sign Up
                         </NavLink>
+                        
                     </Nav>
 
                 </Navbar.Collapse>

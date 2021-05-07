@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from "axios"
 import Navigation from './Navigation';
+import ShowProduct from '../fragments/ShowProduct'
 
 
 
@@ -8,12 +9,14 @@ export default class Home extends Component {
 
     state = {};
     
+    
     componentDidMount(){
 
         const config ={
             headers:{
                 Authorization: 'Bearer' + localStorage.getItem('token')
             }
+            
         };
 
 
@@ -27,16 +30,19 @@ export default class Home extends Component {
             console.log(err)
         })
     }
+
+
+    
     
     
     
     render() {
+        
         return(
         <>
         <Navigation />
-
-        {this.state.user ? <h3>Hi {this.state.user.UserName}</h3> : <h3>home</h3>}
         
+        <ShowProduct />
 
         </>
         )
