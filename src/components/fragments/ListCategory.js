@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 
-export default class Categories extends Component {
+export default class ListCategory extends Component {
 
     constructor(props){
         super(props);

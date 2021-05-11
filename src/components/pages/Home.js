@@ -1,16 +1,22 @@
-import React, {Component} from 'react'
+import React from 'react'
 import axios from "axios"
 import Navigation from './Navigation';
 import ShowProduct from '../fragments/ShowProduct'
+import Cart from '../fragments/Cart'
+import {useState,useEffect} from 'react'
+
+const cartFromLocalStorage  = JSON.parse(localStorage.getItem('cart'))
 
 
 
-export default class Home extends Component {
+export default function Home () {
 
-    state = {};
+    
+
+    const state = {};
     
     
-    componentDidMount(){
+    function componentDidMount () {
 
         const config ={
             headers:{
@@ -18,8 +24,8 @@ export default class Home extends Component {
             }
             
         };
-
-
+    
+    
         axios.get('http://localhost:44374/api/User', config)
         .then(res =>{
             this.setState({
@@ -32,21 +38,74 @@ export default class Home extends Component {
     }
 
 
+    const products = (url='http://localhost:44374/api/Product') =>{
+        return{
+            fetchAll: () => axios.get(url),
+            
+        }
+    }
+    
+
+    const[cart,setCart] = useState([]);
+    useEffect(() => {
+        localStorage.setItem('cart',JSON.stringify(cart));
+    },[cart]);
+
+    const [cartItems, setCartItems] = useState([]);
+
+
+
     
     
-    
-    
-    render() {
+    const onAdd = (product) => {
+        const exist = cartItems.find((x) => x.id === product.id);
+        if (exist) {
+        setCartItems(
+            cartItems.map((x) =>
+            x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+            )
+        );
+        } else {
+        setCartItems([...cartItems, { ...product, qty: 1 }]);
+        }
+    };
+    const onRemove = (product) => {
+        const exist = cartItems.find((x) => x.id === product.id);
+        if (exist.qty === 1) {
+        setCartItems(cartItems.filter((x) => x.id !== product.id));
+        } else {
+        setCartItems(
+            cartItems.map((x) =>
+            x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+            )
+        );
+        }
+    };
+
         
-        return(
+
+    
+    
+    
+    return(
         <>
         <Navigation />
         
-        <ShowProduct />
-
-        </>
-        )
         
-    }
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-md-8">
+                    <ShowProduct onAdd={onAdd} products={products} />
+                </div>
+                <div className="col-md-4">
+                    <Cart onAdd={onAdd}
+                        onRemove={onRemove}
+                        cartItems={cartItems}/>  
+                </div>
+            </div>
+        </div>
+        </>
+
+        )
 }
 

@@ -1,12 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component,useState,useEffect } from 'react'
 import { Container} from '@material-ui/core'
+//import onAdd from '../pages/Home';
+import Product from '../fragments/Product'
+//import axios from 'axios';
 
 
-export default class ShowProduct extends Component {
 
-    constructor(props){
+export default function ShowProduct (props) {
+
+    const {onAdd } = props;
+
+   /* constructor(props){
         super(props);
-        this.state={products:[]}
+        this.state={products:[],onAdd}
     }
 
 
@@ -28,38 +34,34 @@ export default class ShowProduct extends Component {
         this.refreshList();
     }*/
 
-    
+
+
+    const [products,setProducts]= useState([]);
+    useEffect(()=>{
+        async function fetchProducts(){
+            const requesUrl = "http://localhost:44374/api/Product";
+            const reponse = await fetch(requesUrl);
+            const reponseJson= await reponse.json();
+            console.log(reponseJson);
+            setProducts(reponseJson);
+        }
+        fetchProducts();
+    },[]);
 
     
-
-
-
-    render() {
-        const {products}=this.state;
         return (
-            <Container >
             <div className="row text-center">
                 {
-                products.map(p=>
-                    <div key={p.id} className="card m-4 col-s-12 col-lg-4 col-xl-2 ">
-                        <img src={p.imageSrc} alt="product" className="card-img-top" />
-                        <div className="card-body">
-                            <h6>{p.title}</h6> <br/>
-                            <p>{p.price} $</p>
-                            {p.inStock === 0 ? <p className="text-danger">Finished</p> : <p className="text-success">In Stock</p> }
-                            <button className="btn btn-success center">
-                            Add to Cart
-                            </button>
-                        </div>
-                    </div>
+                products.map((product)=>
+                <Product key={product.id} product={product} onAdd={onAdd}></Product>
+                    
                 )}
                 
                 
             </div>
-            </Container>
             
         )
-    }
+    
 }
 
 
