@@ -26,19 +26,28 @@ export default function Cart(props) {
             {cartItems.length === 0 && <div>Cart is empty</div>}
         {cartItems.map((item) => (
             <div key={item.id} className="row ">
-                <div className="col-2">{item.title}</div>
-                <div className="col-2 ">
-                <button onClick={() => onRemove(item)} className="remove ">
-                    -
-                </button>{' '}
-                <button onClick={() => onAdd(item)} className="add ">
-                    +
-                </button>
-                </div>
+                <div className="col-12">{item.title}</div>
+                <br/>
+                <div className="row w-5 ">
+                    <div className="col-1 ">
+                    <button onClick={() => onRemove(item)} className="remove ">
+                        -
+                    </button>{' '}
+                    
+                    </div>
+                    <div className="col-1 ">
+                    
+                    <button onClick={() => onAdd(item)} className="add ">
+                        +
+                    </button>
+                    </div>
 
-                <div className="col-2 text-right">
-                {item.qty} x ${item.price.toFixed(2)}
+                    <div className="col-8 text-right">
+                    {item.qty} x ${item.price.toFixed(2)}
+                    </div>
+
                 </div>
+                
             </div>
             ))}
 

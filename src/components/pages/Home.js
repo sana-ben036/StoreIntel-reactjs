@@ -5,7 +5,7 @@ import ShowProduct from '../fragments/ShowProduct'
 import Cart from '../fragments/Cart'
 import {useState,useEffect} from 'react'
 
-const cartFromLocalStorage  = JSON.parse(localStorage.getItem('cart'))
+const cartFromLocalStorage  = JSON.parse(localStorage.getItem('cart') || '[]')
 
 
 
@@ -16,7 +16,7 @@ export default function Home () {
     const state = {};
     
     
-    function componentDidMount () {
+   /* function componentDidMount () {
 
         const config ={
             headers:{
@@ -36,7 +36,7 @@ export default function Home () {
             console.log(err)
         })
     }
-
+*/
 
     const products = (url='http://localhost:44374/api/Product') =>{
         return{
@@ -46,7 +46,7 @@ export default function Home () {
     }
     
 
-    const[cart,setCart] = useState([]);
+    const[cart,setCart] = useState(cartFromLocalStorage);
     useEffect(() => {
         localStorage.setItem('cart',JSON.stringify(cart));
     },[cart]);
