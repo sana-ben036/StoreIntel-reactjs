@@ -1,10 +1,8 @@
 import './App.css';
-import React, {useState,useEffect} from 'react';
+import React from 'react';
 import {BrowserRouter, Switch ,Route} from 'react-router-dom';
 // import Navigation from './components/pages/Navigation.js';
 import Home from './components/pages/Home';
-import Cart from './components/fragments/Cart';
-import ShowProduct from './components/fragments/ShowProduct';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import Dashboard from './components/pages/Dashboard';

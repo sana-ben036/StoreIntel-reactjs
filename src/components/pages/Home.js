@@ -3,20 +3,19 @@ import axios from "axios"
 import Navigation from './Navigation';
 import ShowProduct from '../fragments/ShowProduct'
 import Cart from '../fragments/Cart'
-import {useState,useEffect} from 'react'
+import {useState,useEffect} from 'react';
 
-const cartFromLocalStorage  = JSON.parse(localStorage.getItem('cart') || '[]')
-
+const cartFromLocalStorage  = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
 
 export default function Home () {
 
     
 
-    const state = {};
+    //const state = {};
     
     
-   /* function componentDidMount () {
+    function componentDidMount () {
 
         const config ={
             headers:{
@@ -36,7 +35,7 @@ export default function Home () {
             console.log(err)
         })
     }
-*/
+
 
     const products = (url='http://localhost:44374/api/Product') =>{
         return{
@@ -45,13 +44,12 @@ export default function Home () {
         }
     }
     
+    const [cartItems, setCartItems] = useState(cartFromLocalStorage);
 
-    const[cart,setCart] = useState(cartFromLocalStorage);
     useEffect(() => {
-        localStorage.setItem('cart',JSON.stringify(cart));
-    },[cart]);
+        localStorage.setItem('cartItems',JSON.stringify(cartItems));
+    },[cartItems]);
 
-    const [cartItems, setCartItems] = useState([]);
 
 
 

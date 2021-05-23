@@ -1,9 +1,10 @@
-import React, {useState,useEffect} from 'react';
-import { Container} from '@material-ui/core'
+import React from 'react';
+
 
 
 
 export default function Cart(props) {
+
 
     const { cartItems, onAdd, onRemove } = props;
     const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
@@ -11,8 +12,8 @@ export default function Cart(props) {
     const shippingPrice = itemsPrice > 2000 ? 0 : 20;
     const totalPrice = itemsPrice + taxPrice + shippingPrice;
 
-    
-  
+
+
 
 
 
