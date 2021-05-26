@@ -15,7 +15,7 @@ export default function Home () {
     //const state = {};
     
     
-    function componentDidMount () {
+    const componentDidMount = () => {
 
         const config ={
             headers:{
@@ -35,6 +35,8 @@ export default function Home () {
             console.log(err)
         })
     }
+
+    
 
 
     const products = (url='http://localhost:44374/api/Product') =>{
